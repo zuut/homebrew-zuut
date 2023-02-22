@@ -15,6 +15,8 @@ class ZuutMoc < Formula
     system "cmake", "-S", ".", "-B", "build", *std_cmake_args
     system "cmake", "--build", "build"
     system "cmake", "--install", "build"
+
+    bin.install_symlink "#{bin}/moc" => "zuutmoc"
   end
 
   test do
@@ -28,5 +30,20 @@ class ZuutMoc < Formula
     # The installed folder is not in the path, so use the entire path to any
     # executables being tested: `system "#{bin}/program", "do", "something"`.
     system "#{bin}/moc --version"
+  end
+
+  def caveats
+    <<-EOS
+    To avoid conflicts, zuut-moc places the executable zuutmoc in
+    homebrew's bin folder. If you wish to use the name moc, you
+    need to add the installation directory to your path.
+
+    To add moc's installation directory to your path, you can add
+    the line below to your shell's config. E.g for bash, you can
+    add the below to .bash_profile or .bashrc:
+
+        PATH="$(brew --prefix zuut-moc)/bin:$PATH"
+
+    EOS
   end
 end
