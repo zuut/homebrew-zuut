@@ -7,6 +7,7 @@ class ZuutMoc < Formula
 
   depends_on "cmake" => :build
 
+  uses_from_macos "sed" => :build
   uses_from_macos "bison" => :build
   uses_from_macos "flex" => :build
 
